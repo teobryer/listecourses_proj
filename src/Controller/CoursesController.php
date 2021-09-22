@@ -21,18 +21,6 @@ class CoursesController extends AbstractController
         $article = new Article();
         // associe obj personne au Form.
         $formArticle = $this->createForm(ArticleType::class,$article);
-        // hydraté $personne en fct du formulaire
-        $formArticle->handleRequest($request);
-        // si le form est validé.
-        if ($formArticle->isSubmitted()){
-            $em = $this->getDoctrine()->getManager();
-            $article->setEstAchete(false);
-            $em->persist($article);
-            
-            $em->flush();
-            // je redirig\
-            return $this->redirectToRoute('courses');
-        }
         $list_courses = $rep->findAll();
         return $this->render('courses/index.html.twig', [
             'list_courses' => $list_courses,
@@ -64,6 +52,30 @@ class CoursesController extends AbstractController
         
         $em->flush();
         return $this->redirectToRoute('courses');
+    }
+
+    /**
+     * @Route("/add_article", name="add_article")
+     */
+    public function ajouterArticle(Request $req): Response
+    {
+        $article = new Article();
+        // associe obj personne au Form.
+        $formArticle = $this->createForm(ArticleType::class,$article);
+        // hydraté $personne en fct du formulaire
+        $formArticle->handleRequest($req);
+        // si le form est validé.
+       
+            $em = $this->getDoctrine()->getManager();
+            $article->setEstAchete(false);
+            $em->persist($article);
+            
+            $em->flush();
+            // je redirig\
+            return $this->redirectToRoute('courses');
+        
+       
+
     }
 
 

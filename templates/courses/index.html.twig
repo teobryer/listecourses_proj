@@ -10,7 +10,7 @@
 						<br>
 						<div class="row">
 							<div class="col-6">
-							{{ form_start(formArticle) }} {# <form ...> #}
+							{{ form_start(formArticle,{'action':path('add_article')}) }} {# <form ...> #}
 
                             {{ form_widget(formArticle.nom) }} {# <form ...> #}
     
